@@ -14,6 +14,9 @@ export function resolverCuadratica(a, b, c) {
   // -------------------------------------------------------------
   // CASO DEGENERADO: a === 0 (CASCARITA / DESAFIO 2)
   // -------------------------------------------------------------
+  if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(c)) {
+    throw new Error("Los coeficientes a, b y c deben ser números finitos válidos.");
+  }
   if (Math.abs(a) < 1e-15) {
     if (Math.abs(b) < 1e-15) {
       if (Math.abs(c) < 1e-15) {
