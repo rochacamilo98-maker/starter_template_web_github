@@ -2,7 +2,7 @@
  * Aplicacion Principal - Integracion de Modulos y UI
  */
 
-import { calcularProbabilidadDados, calcularPartidosTorneo, contarMultiplosMenores, calcularViajesMinimos } from "./modules/bairesdev.js";
+import { calcularProbabilidadDados, calcularPartidosTorneo, contarMultiplosMenores, calcularViajesMinimos, calcularEdadFutura} from "./modules/bairesdev.js";
 import { resolverCuadratica, evaluarPolinomio } from "./modules/cuadratica.js";
 import { analizarSecuencia } from "./modules/secuencias.js";
 import { ejecutarSuiteCompleta } from "./modules/test-suite.js";
@@ -87,7 +87,7 @@ function initModuloA() {
       const div = parseInt(inputDivisor.value, 10);
       const cant = contarMultiplosMenores(lim, div);
       resDiv.innerHTML = `Enteros en el rango [1, ${lim - 1}] divisibles por ${div}:<br>` +
-                         `Total: <strong>${cant} números</strong> (Calculado en tiempo O(1))`;
+                          `Total: <strong>${cant} números</strong> (Calculado en tiempo O(1))`;
     } catch (e) {
       resDiv.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
     }
@@ -110,7 +110,45 @@ function initModuloA() {
       resBotellas.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
     }
   });
+
+  // Reto 5: Edades y proporciones
+  const btnEdad = document.getElementById("btn-calc-edad");
+  const inputEdadPablo = document.getElementById("input-edad-pablo");
+  const inputRazonActual = document.getElementById("input-razon-actual");
+  const inputRazonFutura = document.getElementById("input-razon-futura");
+  const resEdad = document.getElementById("res-edad");
+  btnEdad?.addEventListener("click", () => {
+    try {
+      const edadPablo = Number(inputEdadPablo.value);
+      const razonActual = Number(inputRazonActual.value);
+      const razonFutura = Number(inputRazonFutura.value);
+      if (
+        inputEdadPablo.value.trim() === "" ||
+        inputRazonActual.value.trim() === "" ||
+        inputRazonFutura.value.trim() === "" ||
+        !Number.isFinite(edadPablo) ||
+        !Number.isFinite(razonActual) ||
+        !Number.isFinite(razonFutura)
+      ) {
+        throw new Error("Debes ingresar todos los valores correctamente.");
+      }
+      const edadFutura = calcularEdadFutura(
+        edadPablo,
+        razonActual,
+        razonFutura
+      );
+      resEdad.innerHTML =
+        `Edad actual de Pablo: <strong>${edadPablo} años</strong><br>` +
+        `Relación actual: <strong>${razonActual}</strong><br>` +
+        `Relación futura: <strong>${razonFutura}</strong><br>` +
+        `Edad futura de Pablo: <strong>${edadFutura} años</strong>`;
+    } catch (e) {
+      resEdad.innerHTML =
+        `<span style="color: var(--accent-red);">${e.message}</span>`;
+    }
+  });
 }
+
 
 /* -------------------------------------------------------------
    MODULO B: MOTOR CUADRATICO & CANVAS

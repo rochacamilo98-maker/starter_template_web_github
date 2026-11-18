@@ -73,3 +73,43 @@ export function calcularViajesMinimos(totalItems, capacidadPorViaje) {
   }
   return Math.ceil(totalItems / capacidadPorViaje);
 }
+
+
+
+/**
+ * Reto 5: Edades y proporciones
+ * @param {number} edadPablo - Edad actual de Pablo
+ * @param {number} razonActual - Cuántas veces la edad de la hermana cabe en la de Pablo
+ * @param {number} razonFutura - Proporción de edades que se desea alcanzar
+ * @returns {number}
+ */
+export function calcularEdadFutura(edadPablo, razonActual, razonFutura) {
+
+  if (edadPablo <= 0) {
+    throw new Error("La edad de Pablo debe ser mayor a 0.");
+  }
+
+  if (razonActual <= 1 || razonFutura <= 1) {
+    throw new Error("Las proporciones deben ser mayores a 1.");
+  }
+
+  if (razonFutura >= razonActual) {
+    throw new Error("La proporción futura debe ser menor que la actual.");
+  }
+
+  // Edad actual de la hermana
+  const edadHermana = edadPablo / razonActual;
+
+  // Edad futura de la hermana
+  const th = razonFutura * edadHermana;
+
+  // Diferencia entre la edad actual de Pablo y la futura de su hermana
+  const tp = edadPablo - th;
+
+  // Tiempo que debe transcurrir
+  const t = Math.floor(tp / (razonFutura - 1));
+
+  // Edad futura de Pablo
+  return edadPablo + t;
+}
+
