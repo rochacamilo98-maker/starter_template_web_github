@@ -42,7 +42,7 @@ export function calcularProbabilidadDados(sumaObjetivo) {
  * @returns {number}
  */
 export function calcularPartidosTorneo(n) {
-  if (n < 2) {
+  if (!Number.isInteger(n) || n < 2) {
     throw new Error("Se requieren al menos 2 equipos para jugar un torneo.");
   }
   return (n * (n - 1)) / 2;
@@ -55,8 +55,10 @@ export function calcularPartidosTorneo(n) {
  * @returns {number}
  */
 export function contarMultiplosMenores(limite, divisor) {
-  if (limite <= 1 || divisor <= 0) return 0;
-  // Menores estrictos: [1, limite - 1]
+  if (!Number.isFinite(limite) || !Number.isFinite(divisor) || limite < 0 || divisor <= 0 || limite <= divisor) {
+    throw new Error("Los parámetros deben ser números positivos enteros y el límite debe ser mayor que el divisor.");
+  }
+  if (limite <= 1) return 0;
   return Math.floor((limite - 1) / divisor);
 }
 
@@ -67,13 +69,15 @@ export function contarMultiplosMenores(limite, divisor) {
  * @returns {number}
  */
 export function calcularViajesMinimos(totalItems, capacidadPorViaje) {
-  if (totalItems <= 0) return 0;
+  if (!Number.isFinite(totalItems) || !Number.isFinite(capacidadPorViaje) || totalItems < 0) {
+    throw new Error("La cantidad de botellas no puede ser negativa y debe ser un número válido.");
+  }
   if (capacidadPorViaje <= 0) {
     throw new Error("La capacidad por viaje debe ser mayor a 0.");
   }
+  if (totalItems === 0) return 0;
   return Math.ceil(totalItems / capacidadPorViaje);
 }
-
 
 
 /**
@@ -107,7 +111,7 @@ export function calcularEdadFutura(edadPablo, razonActual, razonFutura) {
   const tp = edadPablo - th;
 
   // Tiempo que debe transcurrir
-  const t = Math.floor(tp / (razonFutura - 1));
+  const t = Math.ceil(tp / (razonFutura - 1));
 
   // Edad futura de Pablo
   return edadPablo + t;

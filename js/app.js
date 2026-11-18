@@ -168,9 +168,9 @@ function initModuloB() {
   const canvas = document.getElementById("parabola-canvas");
 
   function resolverYDibujar() {
-    const a = parseFloat(inputA.value);
-    const b = parseFloat(inputB.value);
-    const c = parseFloat(inputC.value);
+    const a = parseFloat(inputA.value) || 0;
+    const b = parseFloat(inputB.value) || 0;
+    const c = parseFloat(inputC.value) || 0;
 
     // Representacion textual
     const signoB = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
