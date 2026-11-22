@@ -116,4 +116,47 @@ export function calcularEdadFutura(edadPablo, razonActual, razonFutura) {
   // Edad futura de Pablo
   return edadPablo + t;
 }
+  
+  /**
+ * Reto 6: Conteo de dígitos
+ * @param {number} digito - Número entero positivo
+ * @param {number} inicio - Valor inicial para el conteo
+ * @param {number} fin - Valor final para el conteo
+ * @returns {number}
+ */
+export function contarDigitosEnRango (digito, inicio, fin) {
 
+    if (!Number.isInteger(digito)) {
+      throw new Error("El dígito debe ser un número entero entre 0 y 9.");
+    }
+    if (!Number.isInteger(inicio) || !Number.isInteger(fin) || inicio > fin) {
+      throw new Error("El rango debe ser válido y el inicio no puede ser mayor que el fin.");
+    }
+
+    let contador = 0;
+    for (let i = inicio; i <= fin; i++) {
+      const strNum = i.toString();
+      for (const char of strNum) {
+        if (parseInt(char, 10) === digito) {
+          contador++;
+        }
+      }
+    }
+    return contador;
+
+}
+  /**
+   * Reto 7: cálculo del peso de un recipiente
+   * @param {number} lleno - Peso del recipiente vacío
+   * @param {number} parcial - Peso del contenido del recipiente
+   * @returns {number} - Peso total del recipiente con su contenido
+   */
+export function calcularPesoTotal(lleno, parcial) {
+
+if (!Number.isFinite(lleno) || !Number.isFinite(parcial) || lleno < 0 || parcial < 0) {
+  throw new Error("Los pesos deben ser números no negativos."); 
+} 
+const lata = (lleno - parcial) / 0.5;
+const pesoTotal = lleno - lata;
+return pesoTotal;
+}

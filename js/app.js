@@ -2,7 +2,14 @@
  * Aplicacion Principal - Integracion de Modulos y UI
  */
 
-import { calcularProbabilidadDados, calcularPartidosTorneo, contarMultiplosMenores, calcularViajesMinimos, calcularEdadFutura} from "./modules/bairesdev.js";
+import { calcularProbabilidadDados, 
+  calcularPartidosTorneo, 
+  contarMultiplosMenores, 
+  calcularViajesMinimos, 
+  calcularEdadFutura, 
+  contarDigitosEnRango,
+  calcularPesoRecipiente} 
+  from "./modules/bairesdev.js";
 import { resolverCuadratica, evaluarPolinomio } from "./modules/cuadratica.js";
 import { analizarSecuencia } from "./modules/secuencias.js";
 import { ejecutarSuiteCompleta } from "./modules/test-suite.js";
@@ -147,6 +154,44 @@ function initModuloA() {
         `<span style="color: var(--accent-red);">${e.message}</span>`;
     }
   });
+    // Reto 6: Conteo de Dígitos
+  const btnDigitos = document.getElementById("btn-calc-digitos");
+  const inputDigito = document.getElementById("input-digito");
+  const inputInicio = document.getElementById("input-inicio");
+  const inputFin = document.getElementById("input-fin");
+  const resDigitos = document.getElementById("res-digitos");
+
+  btnDigitos?.addEventListener("click", () => {
+    try {
+      const digito = parseInt(inputDigito.value, 10);
+      const inicio = parseInt(inputInicio.value, 10);
+      const fin = parseInt(inputFin.value, 10);
+      const cantidad = contarDigitosEnRango(digito, inicio, fin);
+      resDigitos.innerHTML = `Dígito <strong>${digito}</strong> en el rango [${inicio}, ${fin}]:<br>` +
+                            `Total: <strong>${cantidad} veces</strong>`;
+    } catch (e) {
+      resDigitos.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
+    }
+  });
+  //Reto 7: Calculo del peso de un recipiente
+  const btnPeso = document.getElementById("btn-calc-peso");
+  const inputLleno = document.getElementById("input-lleno");
+  const inputParcial = document.getElementById("input-parcial");
+  const resPeso = document.getElementById("res-peso");
+  
+  btnPeso?.addEventListener("click", () => {
+    try {
+      const lleno = parseFloat(inputLleno.value);
+      const parcial = parseFloat(inputParcial.value);
+      const pesoTotal = calcularPesoRecipiente(lleno, parcial);
+      resPeso.innerHTML = `Peso del recipiente lleno: <strong>${lleno}</strong><br>` +
+                          `Peso del contenido parcial: <strong>${parcial}</strong><br>` +
+                          `Peso total del recipiente con contenido: <strong>${pesoTotal}</strong>`;
+    } catch (e) {
+      resPeso.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
+    }
+  });
+
 }
 
 
