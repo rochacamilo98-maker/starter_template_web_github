@@ -182,6 +182,7 @@ export function calcularDiferenciaIngresos(q1, p1, q2, p2) {
 
   return diferenciaNeta;
 }
+
   /**
    * Reto 9:aumento de precion porsentual 
    * @param {number} v1 - Valor inicial
@@ -200,4 +201,25 @@ export function calcularAumentoPorcentual(v1, v2) {
   }
   const aumento = ((v2 - v1) / v1) * 100;
   return aumento;
+}
+
+/**
+ * Reto 10: Ahorro al pagar al contado vs cuotas
+ * @param {number} n_cuotas - Número de cuotas
+ * @param {number} monto_cuota - Monto de cada cuota
+ * @param {number} precio_contado - Precio al contado
+ * @returns {number} - Ahorro exacto al pagar al contado
+ */
+export function calcularAhorroContado(n_cuotas, monto_cuota, precio_contado) {
+  if (!Number.isFinite(n_cuotas) || !Number.isFinite(monto_cuota) || !Number.isFinite(precio_contado)) {
+    throw new Error("Todos los parámetros deben ser números válidos.");
+  }
+  if (n_cuotas <= 0 || monto_cuota < 0 || precio_contado < 0) {
+    throw new Error("El número de cuotas debe ser mayor a cero y los montos no pueden ser negativos.");
+  }
+
+  const totalCuotas = n_cuotas * monto_cuota;
+  const ahorro = totalCuotas - precio_contado;
+
+  return ahorro;
 }

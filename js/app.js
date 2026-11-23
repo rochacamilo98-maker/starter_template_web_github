@@ -10,7 +10,8 @@ import { calcularProbabilidadDados,
   contarDigitosEnRango,
   calcularPesoTotal,
   calcularDiferenciaIngresos,
-  calcularAumentoPorcentual
+  calcularAumentoPorcentual,
+  calcularAhorroContado
 } 
   from "./modules/bairesdev.js";
 import { resolverCuadratica, evaluarPolinomio } from "./modules/cuadratica.js";
@@ -215,6 +216,7 @@ function initModuloA() {
       resDiferenciaNeta.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
     }
   });
+
   //Reto 9: Aumento porcentual
   const btnAumento = document.getElementById("btn-calc-aumento");
   const inputV1 = document.getElementById("input-v1");
@@ -232,7 +234,29 @@ function initModuloA() {
     }
   });
 
+  // Reto 10: Ahorro al pagar al contado
+  const btnAhorro = document.getElementById("btn-calc-ahorro");
+  const inputNCuotas = document.getElementById("input-n_cuotas");
+  const inputMontoCuota = document.getElementById("input-monto_cuota");
+  const inputPrecioContado = document.getElementById("input-precio_contado");
+  const resAhorro = document.getElementById("res-ahorro");
 
+  btnAhorro?.addEventListener("click", () => {
+    try {
+      const nCuotas = parseInt(inputNCuotas.value, 10);
+      const montoCuota = parseFloat(inputMontoCuota.value);
+      const precioContado = parseFloat(inputPrecioContado.value);
+
+      if (nCuotas <= 0 || montoCuota < 0 || precioContado < 0) {
+        throw new Error("Los valores deben ser números no negativos y el número de cuotas debe ser mayor que cero.");
+      }
+
+      const ahorro = calcularAhorroContado(nCuotas, montoCuota, precioContado);
+      resAhorro.innerHTML = `Ahorro al pagar al contado: <strong>${ahorro.toFixed(2)}</strong>`;
+    } catch (e) {
+      resAhorro.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
+    }
+  });
 }
 
 
