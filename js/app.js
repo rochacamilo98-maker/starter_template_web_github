@@ -9,7 +9,8 @@ import { calcularProbabilidadDados,
   calcularEdadFutura, 
   contarDigitosEnRango,
   calcularPesoTotal,
-  calcularDiferenciaIngresos
+  calcularDiferenciaIngresos,
+  calcularAumentoPorcentual
 } 
   from "./modules/bairesdev.js";
 import { resolverCuadratica, evaluarPolinomio } from "./modules/cuadratica.js";
@@ -212,6 +213,22 @@ function initModuloA() {
       resDiferenciaNeta.innerHTML = `Diferencia neta de ingresos: <strong>${diferenciaNeta}</strong>`;
     } catch (e) {
       resDiferenciaNeta.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
+    }
+  });
+  //Reto 9: Aumento porcentual
+  const btnAumento = document.getElementById("btn-calc-aumento");
+  const inputV1 = document.getElementById("input-v1");
+  const inputV2 = document.getElementById("input-v2");
+  const resAumento = document.getElementById("res-aumento");
+
+  btnAumento?.addEventListener("click", () => {
+    try {
+      const v1 = parseFloat(inputV1.value);
+      const v2 = parseFloat(inputV2.value);
+      const aumento = calcularAumentoPorcentual(v1, v2);
+      resAumento.innerHTML = `Aumento porcentual: <strong>${aumento.toFixed(2)}%</strong>`;
+    } catch (e) {
+      resAumento.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
     }
   });
 

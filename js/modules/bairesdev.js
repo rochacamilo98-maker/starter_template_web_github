@@ -182,3 +182,22 @@ export function calcularDiferenciaIngresos(q1, p1, q2, p2) {
 
   return diferenciaNeta;
 }
+  /**
+   * Reto 9:aumento de precion porsentual 
+   * @param {number} v1 - Valor inicial
+   * @param {number} v2 - Valor final
+   * @returns {number} - Porcentaje de aumento
+   */
+export function calcularAumentoPorcentual(v1, v2) {
+  if ( v1 < 0 || v2 < 0) {
+    throw new Error("Los valores deben ser números no negativos.");
+  }
+  if (!Number.isFinite(v1) || !Number.isFinite(v2)) {
+    throw new Error("Los valores deben ser números válidos.");
+  }
+  if (v1 === 0) {
+    throw new Error("El valor inicial no puede ser cero.");
+  }
+  const aumento = ((v2 - v1) / v1) * 100;
+  return aumento;
+}
