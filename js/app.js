@@ -8,7 +8,9 @@ import { calcularProbabilidadDados,
   calcularViajesMinimos, 
   calcularEdadFutura, 
   contarDigitosEnRango,
-  calcularPesoRecipiente} 
+  calcularPesoTotal,
+  calcularDiferenciaIngresos
+} 
   from "./modules/bairesdev.js";
 import { resolverCuadratica, evaluarPolinomio } from "./modules/cuadratica.js";
 import { analizarSecuencia } from "./modules/secuencias.js";
@@ -183,14 +185,36 @@ function initModuloA() {
     try {
       const lleno = parseFloat(inputLleno.value);
       const parcial = parseFloat(inputParcial.value);
-      const pesoTotal = calcularPesoRecipiente(lleno, parcial);
+      const pesoTotal = calcularPesoTotal(lleno, parcial);
       resPeso.innerHTML = `Peso del recipiente lleno: <strong>${lleno}</strong><br>` +
                           `Peso del contenido parcial: <strong>${parcial}</strong><br>` +
-                          `Peso total del recipiente con contenido: <strong>${pesoTotal}</strong>`;
+                          `Peso del recipiente vacío: <strong>${pesoTotal}</strong>`;
     } catch (e) {
       resPeso.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
     }
   });
+
+  //Reto 8: Diferencia neta del cambio de precios y ventas
+  const btnDiferencia = document.getElementById("btn-calc-diferencia");
+  const inputQ1 = document.getElementById("input-q1");
+  const inputP1 = document.getElementById("input-p1");
+  const inputQ2 = document.getElementById("input-q2");
+  const inputP2 = document.getElementById("input-p2");
+  const resDiferenciaNeta = document.getElementById("res-diferenciaNeta");
+
+  btnDiferencia?.addEventListener("click", () => {
+    try {
+      const q1 = parseInt(inputQ1.value, 10);
+      const p1 = parseInt(inputP1.value, 10);
+      const q2 = parseInt(inputQ2.value, 10);
+      const p2 = parseInt(inputP2.value, 10);
+      const diferenciaNeta = calcularDiferenciaIngresos(q1, p1, q2, p2);
+      resDiferenciaNeta.innerHTML = `Diferencia neta de ingresos: <strong>${diferenciaNeta}</strong>`;
+    } catch (e) {
+      resDiferenciaNeta.innerHTML = `<span style="color: var(--accent-red);">${e.message}</span>`;
+    }
+  });
+
 
 }
 

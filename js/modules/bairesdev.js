@@ -160,3 +160,25 @@ const lata = (lleno - parcial) / 0.5;
 const pesoTotal = lleno - lata;
 return pesoTotal;
 }
+  /**
+   * Reto 8: Diferencia neta del cambio de precios y ventas
+   * @param {number} q1 - Cantidad de vasos vendidos originalmente a precio p1
+   * @param {number} p1 - Precio inicial por vaso
+   * @param {number} q2 - Cantidad de vasos vendidos a precio p2
+   * @param {number} p2 - nuevo precio por vaso
+   * @returns {number} - Diferencia neta de ingresos
+   */
+export function calcularDiferenciaIngresos(q1, p1, q2, p2) {
+  if (!Number.isFinite(q1) || !Number.isFinite(p1) || !Number.isFinite(q2) || !Number.isFinite(p2)) {
+    throw new Error("Todos los parámetros deben ser números válidos.");
+  }
+  if (q1 < 0 || p1 < 0 || q2 < 0 || p2 < 0) {
+    throw new Error("Las cantidades y precios no pueden ser negativos.");
+  }
+
+  const ingresosIniciales = q1 * p1;
+  const ingresosFinales = q2 * p2;
+  const diferenciaNeta = ingresosFinales - ingresosIniciales;
+
+  return diferenciaNeta;
+}
